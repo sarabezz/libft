@@ -1,0 +1,18 @@
+#include <libft.h>
+#include <string.h>
+
+char *ft_strchr(const char *s, int c)
+{
+    char    *last;
+
+    last = NULL;
+    while (*s != '\0')
+    {
+        if (*s == c)
+            last = ((char *)s);
+        s++;
+    }
+    if (c == '\0')
+        return ((char *)s);
+    return (last);
+}
