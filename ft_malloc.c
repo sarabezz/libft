@@ -1,9 +1,12 @@
 #include "libft.h"
-#include <stdlib.h>
+#include <stddef.h>
 
-void *malloc(size_t size)
+void *ft_malloc(size_t size)
 {
-    if (size == 0)
+    void *p;
     
-    
+    p = sbrk(size); // Solicita un bloque de memoria al sistema operativo
+    if (p == (void *)-1)
+        return (NULL);
+    return (p);
 }
