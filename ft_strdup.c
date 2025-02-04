@@ -17,18 +17,15 @@
 
 char *ft_strdup(const char *s)
 {
-    size_t len;
-    char *dup;
+	size_t len;
+	char *result;
 
-    if (!s) // Comprobamos que s no sea NULL
-        return NULL;
-
-    len = ft_strlen(s) + 1; // +1 para incluir el '\0'
-    dup = (char *)malloc(len);
-    if (!dup)
-        return NULL;
-
-    ft_memcpy(dup, s, len); // Copiamos la cadena incluyendo el '\0'
-    
-    return dup;
+	if (!s)
+		return NULL;
+	len = ft_strlen(s) + 1;
+	result = (char *)malloc(len);
+	if (!result)
+		return NULL;
+	ft_memcpy(result, s, len);
+	return result;
 }
