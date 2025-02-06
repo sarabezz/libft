@@ -11,13 +11,11 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
-#include <stdlib.h>
 
-int	ft_count(char const *s, char c)
+static int	ft_count(char const *s, char c)
 {
 	int	count;
-	
+
 	count = 0;
 	while (*s)
 	{
@@ -33,17 +31,55 @@ int	ft_count(char const *s, char c)
 	return (count);
 }
 
+static char	*ft_words(char const *s, char c, int *index)
+{
+	int		i;
+	int		start;
+	char    *result;
+
+	i = *index;
+	while (s[i] == c && s[i] != '\0')
+		i++;
+	start = i;
+	while (s[i] != c && s[i] != '\0')
+		i++;
+	if (start == i)
+		return (NULL);
+	result  = ft_substr(s, start, i - start);
+	if (!result)
+		return (NULL);
+	*index = i;
+    return (result);
+}
+
+
 char	**ft_split(char const *s, char c)
 {
-	int		num;
-	int		i;
 	char	**result;
-	
-	num = ft_count(s, c);
-	result = malloc(sizeof(char*)*(num + 1));
-	i = 0;
-	while (*s)
-	{
+	int		i;
+	int		j;
+	size_t	len;
 
+	len = ft_count(s, c);
+	result = (char **)malloc((len + 1) * sizeof(char *));
+	if (!s || !(result))
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (i < len)
+	{
+		result[i] = ft_words(s, c, &i);
+		if (!result[i])
+		{
+			while (j > 0)
+				free(result[--j]);
+			free(result);
+			return(NULL);
+		}
+		j++;
 	}
+	result[i] = NULL;
+	return (result);
+}
+	
 }
